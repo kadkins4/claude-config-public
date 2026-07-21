@@ -1,0 +1,98 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(afplay *)",
+      "Bash(gh run view *)",
+      "Bash(gh run list *)"
+    ],
+    "defaultMode": "auto"
+  },
+  "model": "fable",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "file=$(jq -r '.tool_input.file_path'); [[ -f \"$file\" ]] && cp \"$file\" \"$file.bak\" || true"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path' | xargs npx prettier --write 2>/dev/null || true"
+          },
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path' | xargs eslint --fix 2>/dev/null || true"
+          },
+          {
+            "type": "command",
+            "command": "file=$(jq -r '.tool_input.file_path'); test_file=$(echo \"$file\" | sed 's/\\.\\(ts\\|tsx\\|js\\|jsx\\)$/.test.\\1/'); [[ -f \"$test_file\" ]] && npx jest \"$test_file\" --passWithNoTests 2>&1 | tail -5 || true",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "exit_code=$(jq -r '.stop_hook_exit_code // 0'); if [[ \"$exit_code\" != \"0\" ]]; then afplay /System/Library/Sounds/Basso.aiff & terminal-notifier -title 'Claude Code' -message 'Task failed' -sound 'Basso' 2>/dev/null; else afplay /System/Library/Sounds/Hero.aiff & terminal-notifier -title 'Claude Code' -message 'Task completed' -sound 'Hero' 2>/dev/null; fi",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay /System/Library/Sounds/Glass.aiff & terminal-notifier -title 'Claude Code' -message 'Input needed' -sound 'Glass' 2>/dev/null",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/kendalladkins/.claude/hooks/cleanup-worktree.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "/Users/kendalladkins/.claude/statusline.sh"
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "learning-opportunities@learning-opportunities": true
+  },
+  "extraKnownMarketplaces": {
+    "learning-opportunities": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/DrCatHicks/learning-opportunities.git"
+      }
+    }
+  },
+  "theme": "dark-daltonized",
+  "remoteControlAtStartup": false,
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true
+}
