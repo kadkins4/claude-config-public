@@ -21,10 +21,11 @@ Everything here lives in `~/.claude/` on my machine. Claude Code picks it up aut
 
 - **`skills/teach/`** — a full tutoring workflow: Claude builds a workspace per topic, runs missions, tracks what you've retained across sessions. Shows how a multi-file skill is structured.
 - **`skills/leetcode-coach/`** — Socratic coach for algorithm practice. Deliberately never gives the answer; a good example of constraining an LLM's default behavior with instructions.
-- **`skills/grill-with-docs/`** — makes Claude challenge your plan instead of agreeing with it, and write down decisions as you make them.
+- **`skills/grilling/`** + **`skills/domain-modeling/`** — the interview primitive (one question at a time, won't act until you confirm shared understanding) and the doc-writer (project glossary + ADRs). `skills/grill-with-docs/` composes the two: challenge your plan, write down decisions as you make them.
+- **`skills/new-feature/`** — the full feature pipeline as one command: grill → spec → tickets → visual plan approval → handoff → ticket-by-ticket TDD. Shows how a skill can orchestrate other skills.
 - **`skills/visual-plan/` + `skills/visual-recap/`** — render plans and code changes as visual pages in the browser instead of terminal text.
 
-**Commands worth reading:** `commands/tests.md`, `commands/mocking.md`, `commands/deep-modules.md`, `commands/interface-design.md`, `commands/refactoring.md` — these are condensed software-design references (largely from _A Philosophy of Software Design_ and testing best practices). Useful reading even without Claude.
+**Commands worth reading:** `commands/tests.md`, `commands/mocking.md`, `commands/refactoring.md` — condensed testing/design references, useful even without Claude. The deep-module design material lives in `skills/codebase-design/` (_A Philosophy of Software Design_ distilled).
 
 **Config worth reading:** `settings.json` shows hooks — shell commands that run automatically on events (after every file edit: prettier + eslint + related tests; on task finish: a notification sound). This is how you make the AI's environment enforce quality instead of trusting the model to remember.
 
@@ -34,6 +35,10 @@ Everything here lives in `~/.claude/` on my machine. Claude Code picks it up aut
 2. **Skills are just markdown.** A skill is a folder with a `SKILL.md` describing when to use it and the steps to follow. No code required to start.
 3. **Hooks make behavior deterministic.** Formatting, linting, and test runs happen in `settings.json` hooks, not by asking nicely.
 4. **Make the AI push back.** Several skills here exist purely to stop the model from being agreeable (`grill-with-docs`, `leetcode-coach`). Default LLM behavior is to please you; that's not always what helps you.
+
+## Credit
+
+Several engineering skills — `grilling`, `domain-modeling`, `codebase-design`, `to-spec`, `to-tickets`, `wayfinder`, `research`, plus the current `grill-with-docs` and `teach` — are adapted from [Matt Pocock's skills repo](https://github.com/mattpocock/skills) (MIT), locally modified (no issue tracker — specs and tickets live as markdown in `.scratch/`).
 
 ## Docs
 

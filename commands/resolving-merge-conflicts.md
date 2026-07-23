@@ -47,7 +47,7 @@ digraph workflow {
     "4. Resolve conflicts preserving intent" [shape=box];
     "5. Verify no markers remain" [shape=box];
     "6. Stage resolved files" [shape=box];
-    "7. Run pnpm install/build/lint/test" [shape=box];
+    "7. Run project's automated checks" [shape=box];
     "8. Document refactors if needed" [shape=box];
 
     "0. Gather context from user" -> "1. Read ALL conflicted files";
@@ -56,8 +56,8 @@ digraph workflow {
     "3. Create resolution plan" -> "4. Resolve conflicts preserving intent";
     "4. Resolve conflicts preserving intent" -> "5. Verify no markers remain";
     "5. Verify no markers remain" -> "6. Stage resolved files";
-    "6. Stage resolved files" -> "7. Run pnpm install/build/lint/test";
-    "7. Run pnpm install/build/lint/test" -> "8. Document refactors if needed";
+    "6. Stage resolved files" -> "7. Run project's automated checks";
+    "7. Run project's automated checks" -> "8. Document refactors if needed";
 }
 ```
 
@@ -127,7 +127,7 @@ For each conflicted file, identify:
 | Why was this change made?                         |                       |                 |
 | Are these changes complementary or contradictory? |                       |                 |
 
-**Key insight:** Look at branch names, commit messages, and surrounding code to understand intent.
+**Key insight:** Find the primary sources for each conflict — read the commit messages, check the PRs, check the original issues/tickets, and look at branch names and surrounding code to understand intent.
 
 **Ask clarifying questions** when the resolution isn't obvious:
 
@@ -164,6 +164,8 @@ Use the Edit tool to replace conflict blocks. A conflict looks like:
 3. **Merge both** - When changes are complementary (most common)
 4. **Rewrite** - When neither version is correct post-merge
 
+**Hard rules:** Preserve both intents where possible. Where incompatible, pick the one matching the merge's stated goal and note the trade-off. Do **not** invent new behaviour. Always resolve; never `--abort`.
+
 ### Step 5: Verify No Markers Remain
 
 ```bash
@@ -185,19 +187,13 @@ git status  # Should show "All conflicts fixed but you are still merging"
 
 ### Step 7: Verify Build and Tests Pass
 
-After staging all resolved files, run verification to ensure the merge didn't break anything:
+After staging all resolved files, discover the project's automated checks and run them — typically install (in case lockfile changed), then typecheck, then lint, then tests. Use whatever the project actually uses (check `package.json` scripts, `Makefile`, CI config):
 
 ```bash
-# Install dependencies (in case lockfile changed)
+# Example for a pnpm project — substitute the project's real tooling
 pnpm install
-
-# Type check
 pnpm tsc --noEmit  # or pnpm run build
-
-# Lint
 pnpm lint
-
-# Run tests
 pnpm test
 ```
 
@@ -254,7 +250,7 @@ Track conflict resolution systematically:
 ...
 N. Verify no conflict markers remain
 N+1. Stage resolved files
-N+2. Run pnpm install/build/lint/test
+N+2. Run project's automated checks
 N+3. Document refactors if needed
 ```
 
