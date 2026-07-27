@@ -1,2 +1,25 @@
-.DS_Store
+# Allowlist style: ignore everything, then un-ignore only the config worth publishing.
+#
+# Rationale: this repo is a PUBLIC, hand-maintained copy of ~/.claude. It is not a
+# remote of that directory — files get copied across manually, so a stray `cp -R` can
+# carry over session transcripts, job-search notes, or every typed prompt (projects/,
+# jobs/, file-history/, history.jsonl, settings.local.json). Once pushed to a repo
+# other people have cloned, deleting it does not unpublish it.
+#
+# A blocklist that ever misses one of those leaks PII permanently. This inverts the
+# risk: new files and directories are ignored by default, and only the paths below
+# can ever be tracked. Adding something new to the repo must be a deliberate edit here.
+/*
+!/.gitignore
+!/README.md
+!/settings.json
+!/CLAUDE.md
+!/statusline.sh
+!/hooks/
+!/commands/
+!/skills/
+
+# Re-ignore backup/cruft even inside the allowlisted dirs above (last match wins).
+# The PreToolUse hook drops *.bak next to any Write-tool edit; those are not restore points.
 *.bak
+.DS_Store
