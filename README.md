@@ -21,6 +21,7 @@ Everything here lives in `~/.claude/` on my machine. Claude Code picks it up aut
 
 - **`skills/teach/`** — a full tutoring workflow: Claude builds a workspace per topic, runs missions, tracks what you've retained across sessions. Shows how a multi-file skill is structured.
 - **`skills/leetcode-coach/`** — Socratic coach for algorithm practice. Deliberately never gives the answer; a good example of constraining an LLM's default behavior with instructions.
+- **`skills/interview-prep/`** — builds a phone-open cheat sheet for a booked interview: company research, background on the actual person interviewing you, a scripted 90-second story, comp/level asks, and honest lines for your gaps. Plus the post-interview debrief. Written to file into an Obsidian vault (one folder per company), but it only needs a folder — point it anywhere.
 - **`skills/grilling/`** + **`skills/domain-modeling/`** — the interview primitive (one question at a time, won't act until you confirm shared understanding) and the doc-writer (project glossary + ADRs). `skills/grill-with-docs/` composes the two: challenge your plan, write down decisions as you make them.
 - **`skills/new-feature/`** — the full feature pipeline as one command: grill → spec → tickets → visual plan approval → handoff → ticket-by-ticket TDD. Shows how a skill can orchestrate other skills.
 - **`skills/visual-plan/` + `skills/visual-recap/`** — render plans and code changes as visual pages in the browser instead of terminal text.
