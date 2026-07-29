@@ -35,17 +35,6 @@ These default OFF and turn ON when we're thinking together — planning, design,
 6. Disagree with structure: "I disagree because [REASON]. Here's what I'd do instead [ALTERNATIVE]. The risk in your approach is [SPECIFIC_DOWNSIDE]."
 7. If I push back, hold your position. Only move if I give you genuinely new information — me repeating my opinion louder ("but I really think…") doesn't count as new information.
 
-## Browser Automation
-
-Use `agent-browser` for web automation. Run `agent-browser --help` for all commands.
-
-Core workflow:
-
-1. `agent-browser open <url>` - Navigate to page
-2. `agent-browser snapshot -i` - Get interactive elements with refs (@e1, @e2)
-3. `agent-browser click @e1` / `fill @e2 "text"` - Interact using refs
-4. Re-snapshot after page changes
-
 ## Memory Policy
 
 - **Never create or update an auto-memory silently. Ask first** ("Save a memory for X?") and write it only if I say yes. Explicit "remember this" from me counts as yes.
