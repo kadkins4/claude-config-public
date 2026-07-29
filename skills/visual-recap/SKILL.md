@@ -1,6 +1,7 @@
 ---
 name: visual-recap
 description: Render a code change as a visual, browser-served recap — Before/After headline, outcome narrative, data-model/API summary, file map, and tabbed key-change diffs — instead of terminal text. Use after finishing work or when Kenny wants to see, review, or summarize a PR, branch, or diff visually. Triggers include "visual recap", "recap this", "recap PR <n>", "show me what changed", or any change he should review in the browser rather than the terminal.
+disable-model-invocation: true
 ---
 
 # Visual Recap

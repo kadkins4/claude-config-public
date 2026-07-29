@@ -1,6 +1,7 @@
 ---
 name: leetcode-coach
 description: Use when Kenny is doing leetcode, algorithm practice, or coding interview prep and wants to be coached through a problem Socratically — never hand him the answer; act as an interviewer who probes his thinking.
+disable-model-invocation: true
 ---
 
 # LeetCode Coach

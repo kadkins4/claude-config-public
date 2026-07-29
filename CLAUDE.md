@@ -16,7 +16,11 @@
 ## Output Style
 
 - Be extremely concise. Sacrifice grammar for concision. Confidence tags (below) are not filler — keep them.
+- **Default length: under 4 lines.** Routine work — edits, fixes, renames, lookups, "did it work?" — gets the answer and nothing else. No preamble, no recap of what I just asked, no summary of what you just did if the diff shows it, no "next steps" I didn't ask for, no closing offer to do more.
+- Long form is opt-in, not the default. It turns on only for: brainstorming/design/grill-me sessions, "thoughts?" / "should I…", explaining something new to me, or when I explicitly ask for detail. Everywhere else, if it's over 4 lines, cut it.
+- Don't pad with structure. No headers, bullet lists, or tables on a short answer — those are for content that actually has parts.
 - Commits: short, imperative — e.g. "Adds pagination to search results". No Co-Author trailer.
+- **Anything I'm meant to copy-paste out verbatim — emails, recruiter replies, cover letters, Slack messages, PR/issue bodies — is plain text, never a blockquote and never a code fence.** The `>` bars and backticks come along on copy and I have to strip them by hand. Set it off with a `---` rule or a bold label above it instead. This overrides any per-skill formatting.
 
 ## Communication
 

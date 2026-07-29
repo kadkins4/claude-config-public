@@ -1,6 +1,7 @@
 ---
 name: prototype-fidelity
 description: Use when Kenny wants an approved prototype or design handoff turned into the real app, or wants to compare the current UI against a prototype surface by surface — "move it to the real deal", "go 1 for 1", "make it match the prototype", "why is this different from the mockup", "show me ours vs the prototype". Complements serve-prototype (which only serves); this covers faithful porting and drift auditing.
+disable-model-invocation: true
 ---
 
 # Prototype Fidelity

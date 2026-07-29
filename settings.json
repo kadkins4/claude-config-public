@@ -1,13 +1,9 @@
 {
   "permissions": {
-    "allow": [
-      "Bash(afplay *)",
-      "Bash(gh run view *)",
-      "Bash(gh run list *)"
-    ],
+    "allow": ["Bash(afplay *)", "Bash(gh run view *)", "Bash(gh run list *)"],
     "defaultMode": "auto"
   },
-  "model": "fable",
+  "model": "opus",
   "hooks": {
     "PreToolUse": [
       {
@@ -80,7 +76,7 @@
   },
   "enabledPlugins": {
     "superpowers@claude-plugins-official": true,
-    "playwright@claude-plugins-official": true,
+    "playwright@claude-plugins-official": false,
     "learning-opportunities@learning-opportunities": true
   },
   "extraKnownMarketplaces": {
@@ -92,7 +88,7 @@
     }
   },
   "theme": "dark-daltonized",
-  "remoteControlAtStartup": false,
+  "remoteControlAtStartup": true,
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true
 }
