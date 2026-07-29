@@ -12,6 +12,8 @@
 - **Documentation**: Obsidian for personal notes
 - **Python**: Always default to using `uv` unless specified otherwise
 - **Version control**: Git via GitHub CLI (gh)
+- **Estimates**: rate **complexity** (Simple / Moderate / Complex / Extreme) plus the 1-2 factors driving it. Never give minutes or hours unless I ask — and if I do, say the basis and note that agent execution time isn't human dev time.
+- **UI performance**: CSS animations before JS; fall back to JS only when CSS genuinely can't do it. Lightest asset first — inline SVG or emoji over raster.
 
 ## Output Style
 
