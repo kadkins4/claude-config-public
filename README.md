@@ -22,6 +22,7 @@ Everything here lives in `~/.claude/` on my machine. Claude Code picks it up aut
 - **`skills/teach/`** — a full tutoring workflow: Claude builds a workspace per topic, runs missions, tracks what you've retained across sessions. Shows how a multi-file skill is structured.
 - **`skills/leetcode-coach/`** — Socratic coach for algorithm practice. Deliberately never gives the answer; a good example of constraining an LLM's default behavior with instructions.
 - **`skills/interview-prep/`** — builds a phone-open cheat sheet for a booked interview: company research, background on the actual person interviewing you, a scripted 90-second story, comp/level asks, and honest lines for your gaps. Plus the post-interview debrief. Written to file into an Obsidian vault (one folder per company), but it only needs a folder — point it anywhere.
+- **`skills/job-search/`** — the job-hunt bundle. `job-search` runs the triage loop (dup-check, fit rundown, wait for your call, log the application as its own markdown note, process rejections, re-derive counts with `scripts/build_index.py`). `job-posting-analysis` is the fit engine it calls. `cover-letter`, `take-home-strategist`, `interview-rig-builder`, `interview-prep`, and `leetcode-coach` cover the rest of the pipeline. **Start by filling in `skills/job-search/user-context.md`** — every filter (location, comp floor, domain no-gos, what stack you can honestly claim) reads from it, and the skills refuse to guess. See "Setting up the job-hunt skills" below.
 - **`skills/grilling/`** + **`skills/domain-modeling/`** — the interview primitive (one question at a time, won't act until you confirm shared understanding) and the doc-writer (project glossary + ADRs). `skills/grill-with-docs/` composes the two: challenge your plan, write down decisions as you make them.
 - **`skills/new-feature/`** — the full feature pipeline as one command: grill → spec → tickets → visual plan approval → handoff → ticket-by-ticket TDD. Shows how a skill can orchestrate other skills.
 - **`skills/visual-plan/` + `skills/visual-recap/`** — render plans and code changes as visual pages in the browser instead of terminal text.
@@ -29,6 +30,16 @@ Everything here lives in `~/.claude/` on my machine. Claude Code picks it up aut
 **Commands worth reading:** `commands/tests.md`, `commands/mocking.md`, `commands/refactoring.md` — condensed testing/design references, useful even without Claude. The deep-module design material lives in `skills/codebase-design/` (_A Philosophy of Software Design_ distilled).
 
 **Config worth reading:** `settings.json` shows hooks — shell commands that run automatically on events (after every file edit: prettier + eslint + related tests; on task finish: a notification sound). This is how you make the AI's environment enforce quality instead of trusting the model to remember.
+
+## Setting up the job-hunt skills
+
+Copy these folders into `~/.claude/skills/`: `job-search`, `job-posting-analysis`, `cover-letter`, `take-home-strategist`, `interview-rig-builder`, `interview-prep`, `leetcode-coach`. Then:
+
+1. Open `~/.claude/skills/job-search/user-context.md` and fill in every `<...>` blank. `JOB_SEARCH_DIR` and `RESUME_PATH` are required; the rest are the filters the rundowns score against. The skills are `disable-model-invocation: true`, so you start a session with `/job-search` and it reads this file first.
+2. Create the folder at `JOB_SEARCH_DIR` with `Job Search Home.md`, `Board Watchlist.md`, `Interview Prep.md`, and an empty `Companies/`. The `job-search` skill describes each file. `Applications.base` is optional and only matters if you use Obsidian Bases; the index script works without it.
+3. Run `JOB_SEARCH_DIR="<that folder>" python3 ~/.claude/skills/job-search/scripts/build_index.py` once to confirm it can see the folder.
+
+Everything company- or person-specific lives in `user-context.md`, so the skills themselves never need editing.
 
 ## Ideas worth stealing
 
